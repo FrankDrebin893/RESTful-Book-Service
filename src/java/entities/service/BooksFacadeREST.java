@@ -59,6 +59,20 @@ public class BooksFacadeREST extends AbstractFacade<Books> {
     public Books find(@PathParam("id") Integer id) {
         return super.find(id);
     }
+    
+    @GET
+    @Path("genre/{genre}")
+    @Produces({"application/xml", "application/json"})
+    public List<Books> findByGenre(@PathParam("genre")String genre){
+        return getEntityManager().createNamedQuery("Books.findByGenre").setParameter("genre", genre).getResultList();
+    }
+    /*
+    @GET
+    @Path("genre/{genre}")
+    @Produces({"application/xml", "application/json"})
+    public Books find(@PathParam("genre") String genre) {
+        return super.findByGenre(genre);
+    }*/
 
     @GET
     @Override
@@ -80,6 +94,8 @@ public class BooksFacadeREST extends AbstractFacade<Books> {
     public String countREST() {
         return String.valueOf(super.count());
     }
+    
+
 
     @Override
     protected EntityManager getEntityManager() {
